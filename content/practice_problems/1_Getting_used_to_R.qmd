@@ -139,10 +139,27 @@ INSERT AN R CHUNK HERE AND RUN EACH OF THESE COMMANDS. Add a new chunk
 by clicking the *Insert Chunk* button on the toolbar or by pressing
 *Ctrl+Alt+I*. Then state what each of these does.
 
+```{r}
+length(x)
+```
+
+length returns the number of items
+
+```{r}
+max(x)
+
+```
+
 #### 3
 
 Is `-1:2` the same as `(-1):2` or `-(1:2)`? INSERT AN R CHUNK HERE AND
 RUN EACH OF THESE COMMANDS. Then state what each of these does.
+
+```{r}
+-1:2
+(-1):2
+-(1:2)
+```
 
 ### Data input, plotting, and tests
 
@@ -165,12 +182,20 @@ of data is stored in each variable?
 
 ENTER ANSWERS HERE. ADD ANY R CHUNKS YOU USED TO FIND THE ANSWER.
 
+```{r}
+dim(sleep)
+```
+
 #### 5
 
 Change the column named *BodyWt* to *Body_weight*"\* in the sleep
 dataset.
 
 ADD ANY R CHUNKS YOU USED TO COMPLETE THE TASK.
+
+```{r}
+names(sleep)[names(sleep) %in% "BodyWt"] <- "Body_weight"
+```
 
 #### 6
 
@@ -181,7 +206,7 @@ Note, as of early 2020 R no longer reads in strings as factors! This
 means the Primate column, which is full of "Yes"s and "No"s, reads in as
 words and R doesn't know how to plot them. There are many ways to handle
 this. You can modify the read.csv command (add stringsAsFactors = T
-option), eg
+option), eg\*
 
 ```{r, eval=F}
 sleep <- read.csv("http://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/sleep.csv", stringsAsFactors = T)
@@ -208,6 +233,15 @@ NOTE YOU CAN ADD A PLOT TO THE DOCUMENT TOO! AMEND THE BELOW AS NEEDED.
 plot(cars)
 ```
 
+```{r}
+plot(TotalSleep ~ Primate, sleep)
+```
+
+```{r}
+plot(TotalSleep ~ factor(Primate), sleep, main = "Variance in sleep differs between primates and non-primates", 
+     xlab = "Primate", ylab = "Total sleep (hours)")
+```
+
 #### 7
 
 The **sleep** dataset begs to have a linear model fit for it. Let's
@@ -219,6 +253,22 @@ this imply?
 ENTER ANSWERS HERE. ADD ANY R CHUNKS YOU USED TO FIND THE ANSWER.
 
 ### EXTRA QUESTIONS
+
+```{r}
+plot(TotalSleep ~ BrainWt, sleep)
+```
+
+```{r}
+sleep_fit <- lm(TotalSleep ~ BrainWt, sleep[sleep$BrainWt<1000,])
+summary(sleep_fit)
+
+```
+
+```{r}
+plot(TotalSleep ~ BrainWt, data = sleep[sleep$BrainWt <  1000, ])
+abline(sleep_fit)
+
+```
 
 *not required*
 
@@ -238,6 +288,13 @@ You'll need to modify the read.csv function by specifying
 "a5_abund", "a6_abund"\]. Try it and check your input using the `head`
 command.
 
+```{r}
+alcids <- read.csv("https://raw.githubusercontent.com/jsgosnell/CUNY-BioStats/master/datasets/alcids55.csv",header = F, stringsAsFactors = T)
+names(alcids) <- c("year", "a1_abund", "NAO", "a2_abund", "a3_abund", "a4_abund", "a5_abund", "a6_abund")
+head(alcids)
+
+```
+
 ENTER ANSWERS HERE. ADD ANY R CHUNKS YOU USED TO FIND THE ANSWER.
 
 #### 9
@@ -254,3 +311,10 @@ Enter it into R (manually or via a .csv). (Hint: you have a piece of
 this in the code already). Check your input using the head() command.
 
 ENTER ANSWERS HERE. ADD ANY R CHUNKS YOU USED TO FIND THE ANSWER.
+
+```{r}
+example_sheet <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vRsRUBNxda2SEyfti8fAlGLbXjilR1SWYdmkOh1ZEIhadaqwkH6fP9aoWSPgIQEh0dd0isOxONTeAQc/pub?gid=0&single=true&output=csv",
+                          stringsAsFactors = T)
+# so you can see it
+head(example_sheet)
+```
