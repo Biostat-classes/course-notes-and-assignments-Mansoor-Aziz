@@ -85,35 +85,19 @@ distribution (code or written explanation) + R functions
 proportion of people who are right-eared \* How do your 95% confidence
 interval and hypothesis test compare?
 
-```{r} 19/25 #sample proportion}
-```
+`{r} 19/25 #sample proportion}`
 
-```{r}sampling_experiment = rbinom(10000, 25, .5)}
-hist(sampling_experiment, breaks = 0:25, xlab = "# of Right-eared people out of 25", ylab = "Probability of being drawn \n from population of p = 0.5", cex.main = 2, cex.axis = 1.5, cex.lab = 2)
-```
+`{r}sampling_experiment = rbinom(10000, 25, .5)} hist(sampling_experiment, breaks = 0:25, xlab = "# of Right-eared people out of 25", ylab = "Probability of being drawn \n from population of p = 0.5", cex.main = 2, cex.axis = 1.5, cex.lab = 2)`
 
-```{r}using_distribution = dbinom(0:25,25,.5)}
-using_distribution
-sum(using_distribution)
-Number_righteared = c(0:25)
-pdf = data.frame(Number_righteared, using_distribution)
-plot(0:25, using_distribution)
-```
+`{r}using_distribution = dbinom(0:25,25,.5)} using_distribution sum(using_distribution) Number_righteared = c(0:25) pdf = data.frame(Number_righteared, using_distribution) plot(0:25, using_distribution)`
 
-```{r}length(sampling_experiment[sampling_experiment >= 19 | sampling_experiment <= 6])/length(sampling_experiment)}
-```
+`{r}length(sampling_experiment[sampling_experiment >= 19 | sampling_experiment <= 6])/length(sampling_experiment)}`
 
-```{r}(1-pbinom(18,25,.5)) * 2}
-```
+`{r}(1-pbinom(18,25,.5)) * 2}`
 
-```{r} binom.test(19,25, p=.5)}
-```
+`{r} binom.test(19,25, p=.5)}`
 
-```{r}library(binom)}
-binom.confint(x=19, n=25, alpha=.05, method="all") #use Agresti-coull 
-#or
-binom.confint(x=19, n=25, alpha=.05, method="agresti-coull")
-```
+`{r}library(binom)} binom.confint(x=19, n=25, alpha=.05, method="all") #use Agresti-coull  #or binom.confint(x=19, n=25, alpha=.05, method="agresti-coull")`
 
 *Our 95% CI is .562 - .888.*
 
@@ -141,6 +125,6 @@ binom.test(33,100, alternative="greater", p=.25)
 ```
 
 *I chose to use a sided test since the professor wants to know if the
-students helped the dog.\
-I found a p-value of .04, so I reject the null hypothesis that the
-proportion of correct answers is .25 (what I would expect by chance).*
+students helped the dog. I found a p-value of .04, so I reject the null
+hypothesis that the proportion of correct answers is .25 (what I would
+expect by chance).*
